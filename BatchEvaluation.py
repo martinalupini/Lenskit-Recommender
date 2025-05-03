@@ -39,7 +39,6 @@ def batch_evaluation(ml100k, small=False):
     for split in crossfold_users(ml100k, 5, SampleFrac(0.2)):
         # collect the test data
         all_test.add_from(split.test)
-        print(split.train.head())
 
         # train the pipeline, cloning first so a fresh pipeline for each split
         fit_als = pipe_BiasScorer.clone()

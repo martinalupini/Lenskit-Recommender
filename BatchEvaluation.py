@@ -23,6 +23,7 @@ def batch_evaluation(ml100k, small=False):
     model_FunkSVDScorer = FunkSVDScorer(features=40)
     model_BiasedSVDScorer = BiasedSVDScorer(embedding_size=40)
 
+    # Using the topn pipeline
     pipe_BiasScorer = topn_pipeline(model_BiasScorer)
     pipe_UserKNNScorer = topn_pipeline(model_UserKNNScorer)
     pipe_ItemKNNScorer = topn_pipeline(model_ItemKNNScorer)
@@ -47,7 +48,7 @@ def batch_evaluation(ml100k, small=False):
         als_recs = recommend(fit_als, split.test.keys(), 100)
         all_recs.add_from(als_recs, model="BiasScorer")
 
-        # do the same for item-item
+        # do the same for all algorithms
         fit_ii = pipe_UserKNNScorer.clone()
         fit_ii.train(split.train)
         ii_recs = recommend(fit_ii, split.test.keys(), 100)
@@ -79,6 +80,7 @@ def batch_evaluation(ml100k, small=False):
         all_recs.add_from(BiasedSVDScorer_recs, model="BiasedSVDScorer")
 
 
+    # Evaluation of the results
     ran = RunAnalysis()
     ran.add_metric(NDCG())
     ran.add_metric(RecipRank())
@@ -88,21 +90,21 @@ def batch_evaluation(ml100k, small=False):
 
     metrics_table = results.list_metrics().groupby("model")[["NDCG", "RecipRank"]].mean()
 
-    # Salva su CSV o LaTeX se serve per report
+    # Saving the results in the CSV files
     if small:
         path = "files/metrics_small.csv"
         path_NDCG = "plots/plotNDCG_small.png"
         path_RR = "plots/plotRR_small.png"
     else:
-        path = "files/metrics_2.csv"
+        path = "files/metrics_3.csv"
         path_NDCG = "plots/plotNDCG.png"
         path_RR = "plots/plotRR.png"
     metrics_table.to_csv(path)
 
-    sns.catplot(results.list_metrics().reset_index(), x="model", y="NDCG", kind="bar", aspect=2)
-    plt.savefig(path_NDCG)
-    sns.catplot(results.list_metrics().reset_index(), x="model", y="RecipRank", kind="bar", aspect=2)
-    plt.savefig(path_RR)
+    #sns.catplot(results.list_metrics().reset_index(), x="model", y="NDCG", kind="bar", aspect=2)
+    #plt.savefig(path_NDCG)
+    #sns.catplot(results.list_metrics().reset_index(), x="model", y="RecipRank", kind="bar", aspect=2)
+    #plt.savefig(path_RR)
 
 
 

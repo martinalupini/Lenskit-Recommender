@@ -101,10 +101,10 @@ def batch_evaluation(ml100k, small=False):
         path_RR = "plots/plotRR.png"
     metrics_table.to_csv(path)
 
-    #sns.catplot(results.list_metrics().reset_index(), x="model", y="NDCG", kind="bar", aspect=2)
-    #plt.savefig(path_NDCG)
-    #sns.catplot(results.list_metrics().reset_index(), x="model", y="RecipRank", kind="bar", aspect=2)
-    #plt.savefig(path_RR)
+    sns.catplot(results.list_metrics().reset_index(), x="model", y="NDCG", kind="bar", aspect=2)
+    plt.savefig(path_NDCG)
+    sns.catplot(results.list_metrics().reset_index(), x="model", y="RecipRank", kind="bar", aspect=2)
+    plt.savefig(path_RR)
 
 
 

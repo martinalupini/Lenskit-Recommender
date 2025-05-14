@@ -1,3 +1,5 @@
+__author__ = 'Martina Lupini'
+
 from lenskit.als import BiasedMFScorer, ImplicitMFScorer
 from lenskit.pipeline import predict_pipeline
 from lenskit.basic import BiasScorer

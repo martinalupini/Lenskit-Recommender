@@ -1,3 +1,5 @@
+__author__ = 'Martina Lupini'
+
 from lenskit.data import  load_movielens
 from pyprojroot.here import here
 from BatchEvaluation import *

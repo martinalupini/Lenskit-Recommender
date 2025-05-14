@@ -1,3 +1,5 @@
+__author__ = 'Martina Lupini'
+
 from lenskit.als import BiasedMFScorer, ImplicitMFScorer
 from lenskit.batch import recommend
 from lenskit.data import ItemListCollection, UserIDKey
@@ -11,7 +13,6 @@ from lenskit.sklearn.svd import BiasedSVDScorer
 from  lenskit.basic.random import RandomSelector
 import seaborn as sns
 import matplotlib.pyplot as plt
-
 
 
 def batch_evaluation(ml100k, small=False):
@@ -92,11 +93,11 @@ def batch_evaluation(ml100k, small=False):
 
     # Saving the results in the CSV files
     if small:
-        path = "files/metrics_small.csv"
+        path = "files/metrics_3_small.csv"
         path_NDCG = "plots/plotNDCG_small.png"
         path_RR = "plots/plotRR_small.png"
     else:
-        path = "files/metrics_3.csv"
+        path = "files/metrics.csv"
         path_NDCG = "plots/plotNDCG.png"
         path_RR = "plots/plotRR.png"
     metrics_table.to_csv(path)
